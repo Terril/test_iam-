@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 import 'package:iamplus_zomato/bloc/restaurant_event.dart';
 import 'package:iamplus_zomato/bloc/restaurant_state.dart';
-import 'package:iamplus_zomato/models/restaurant.dart';
+import 'package:iamplus_zomato/models/restaurant_data.dart';
 import 'package:iamplus_zomato/repository/api_repository.dart';
 
 class RestaurantBloc extends Bloc<RestaurantEvent, RestaurantState> {
@@ -24,7 +24,7 @@ class RestaurantBloc extends Bloc<RestaurantEvent, RestaurantState> {
     if (event is FetchRestaurant) {
       yield RestaurantLoading();
       try {
-        final Restaurant data = await repository.fetchRestaurants(lat, lon);
+        final RestaurantData data = await repository.fetchRestaurants(lat, lon);
         yield RestaurantLoaded(data: data);
       } catch (_) {
         yield RestaurantError();

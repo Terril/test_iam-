@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../models/restaurant.dart';
+import '../models/restaurant_data.dart';
 
 class ApiClient {
   final String _baseUrl = 'https://developers.zomato.com/api/v2.1';
@@ -12,7 +12,7 @@ class ApiClient {
     @required this.httpClient,
   }) : assert(httpClient != null);
 
-  Future<Restaurant> fetchRestaurants(double lat, double lon) async {
+  Future<RestaurantData> fetchRestaurants(double lat, double lon) async {
     final url = '$_baseUrl/geocode?lat=$lat&lon=$lon';
     final response = await this.httpClient.get(url, headers: {"user-key": API_KEY});
 
@@ -21,6 +21,6 @@ class ApiClient {
     }
 
     final json = jsonDecode(response.body);
-    return Restaurant.fromJson(json);
+    return RestaurantData.fromJson(json);
   }
 }

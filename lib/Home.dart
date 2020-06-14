@@ -1,6 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:iamplus_zomato/bloc/restaurant_event.dart';
+
+import 'bloc/restaurant_bloc.dart';
+import 'bloc/restaurant_state.dart';
 
 class Home extends StatelessWidget {
   Home({
@@ -8,1185 +13,680 @@ class Home extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffffffff),
-      body: Stack(
-        children: <Widget>[
-          Transform.translate(
-            offset: Offset(0.5, 0.0),
-            child: Container(
-              width: 379.0,
-              height: 812.0,
-              decoration: BoxDecoration(
-                color: const Color(0xffffffff),
-              ),
-            ),
-          ),
-          // Adobe XD layer: 'Menu' (group)
-          Stack(
-            children: <Widget>[
-              // Adobe XD layer: 'Path 3' (shape)
-              SvgPicture.string(
-                _svg_496moa,
-                allowDrawingOutsideViewBox: true,
-              ),
-              Transform.translate(
-                offset: Offset(16.0, 729.5),
-                child:
-                    // Adobe XD layer: 'cart' (group)
-                    Stack(
-                  children: <Widget>[
-                    // Adobe XD layer: 'Rectangle' (shape)
-                    Container(
-                      width: 24.0,
-                      height: 24.0,
-                      decoration: BoxDecoration(),
-                    ),
-                    Transform.translate(
-                      offset: Offset(3.0, 0.0),
-                      child:
-                          // Adobe XD layer: 'shopping-bag' (group)
-                          Stack(
-                        children: <Widget>[
-                          Transform.translate(
-                            offset: Offset(5.79, 0.53),
-                            child:
-                                // Adobe XD layer: 'Path' (shape)
-                                SvgPicture.string(
-                              _svg_smpafo,
-                              allowDrawingOutsideViewBox: true,
-                            ),
-                          ),
-                          Transform.translate(
-                            offset: Offset(4.5, 7.5),
-                            child:
-                                // Adobe XD layer: 'Oval' (shape)
-                                Container(
-                              width: 2.0,
-                              height: 2.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                    Radius.elliptical(1.0, 1.0)),
-                                border: Border.all(
-                                    width: 1.0, color: const Color(0xff111111)),
-                              ),
-                            ),
-                          ),
-                          Transform.translate(
-                            offset: Offset(11.5, 7.5),
-                            child:
-                                // Adobe XD layer: 'Oval' (shape)
-                                Container(
-                              width: 2.0,
-                              height: 2.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                    Radius.elliptical(1.0, 1.0)),
-                                border: Border.all(
-                                    width: 1.0, color: const Color(0xff111111)),
-                              ),
-                            ),
-                          ),
-                          Transform.translate(
-                            offset: Offset(0.61, 5.5),
-                            child:
-                                // Adobe XD layer: 'Path' (shape)
-                                SvgPicture.string(
-                              _svg_3umfga,
-                              allowDrawingOutsideViewBox: true,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Transform.translate(
-                offset: Offset(20.0, 148.0),
-                child:
-                    // Adobe XD layer: 'Search' (group)
-                    Stack(
-                  children: <Widget>[
-                    // Adobe XD layer: 'bound' (shape)
-                    SvgPicture.string(
-                      _svg_2jjczc,
-                      allowDrawingOutsideViewBox: true,
-                    ),
-                  ],
-                ),
-              ),
-              Transform.translate(
-                offset: Offset(20.0, 76.0),
-                child:
-                    // Adobe XD layer: 'Layout-4-Blocks' (group)
-                    Stack(
-                  children: <Widget>[
-                    // Adobe XD layer: 'bound' (shape)
-                    SvgPicture.string(
-                      _svg_9750qa,
-                      allowDrawingOutsideViewBox: true,
-                    ),
-                    Transform.translate(
-                      offset: Offset(4.0, 4.0),
-                      child:
-                          // Adobe XD layer: 'Rectangle-7' (shape)
-                          Container(
-                        width: 7.0,
-                        height: 7.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(1.5),
-                          color: const Color(0xff111111),
-                        ),
-                      ),
-                    ),
-                    Transform.translate(
-                      offset: Offset(4.0, 4.0),
-                      child:
-                          // Adobe XD layer: 'Combined-Shape' (shape)
-                          SvgPicture.string(
-                        _svg_2ugqxp,
-                        allowDrawingOutsideViewBox: true,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Transform(
-                transform: Matrix4(0.0, -1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
-                    0.0, 1.0, 0.0, 17.5, 669.5, 0.0, 1.0),
-                child:
-                    // Adobe XD layer: 'Home' (text)
-                    SizedBox(
-                  width: 42.0,
-                  child: Text(
-                    'Home',
-                    style: TextStyle(
-                      fontFamily: 'PlayfairDisplay-Bold',
-                      fontSize: 13,
-                      color: const Color(0xff365eff),
-                      height: 1.8461538461538463,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              Transform(
-                transform: Matrix4(0.0, -1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
-                    0.0, 1.0, 0.0, 14.0, 569.0, 0.0, 1.0),
-                child:
-                    // Adobe XD layer: 'Invoice' (text)
-                    SizedBox(
-                  width: 50.0,
-                  child: Text(
-                    'Invoice',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 13,
-                      color: const Color(0xff000000),
-                      height: 1.8461538461538463,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              Transform(
-                transform: Matrix4(0.0, -1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
-                    0.0, 1.0, 0.0, 13.5, 464.0, 0.0, 1.0),
-                child:
-                    // Adobe XD layer: 'Notification' (text)
-                    SizedBox(
-                  width: 80.0,
-                  child: Text(
-                    'Notification',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 13,
-                      color: const Color(0xff000000),
-                      height: 1.8461538461538463,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              Transform(
-                transform: Matrix4(0.0, -1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
-                    0.0, 1.0, 0.0, 14.0, 331.0, 0.0, 1.0),
-                child:
-                    // Adobe XD layer: 'My Profile' (text)
-                    SizedBox(
-                  width: 74.0,
-                  child: Text(
-                    'My  Profile',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 13,
-                      color: const Color(0xff000000),
-                      height: 1.8461538461538463,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Transform.translate(
-            offset: Offset(102.0, 68.0),
-            child:
-                // Adobe XD layer: 'Content' (group)
-                Stack(
+    return BlocBuilder<RestaurantBloc, RestaurantState>(
+      builder: (context, state) {
+        if (state is RestaurantEmpty) {
+          BlocProvider.of<RestaurantBloc>(context).add(FetchRestaurant());
+        }
+        if (state is RestaurantError) {
+          return Center(
+            child: Text('Failed to fetch restaurants'),
+          );
+        }
+        if (state is RestaurantLoaded) {
+          return Scaffold(
+            backgroundColor: const Color(0xffffffff),
+            body: Stack(
               children: <Widget>[
                 Transform.translate(
-                  offset: Offset(0.0, 52.0),
-                  child:
-                      // Adobe XD layer: 'Filter' (group)
-                      Stack(
-                    children: <Widget>[
-                      // Adobe XD layer: 'Nation' (group)
-                      Stack(
-                        children: <Widget>[
-                          // Adobe XD layer: 'Group' (group)
-                          Stack(
-                            children: <Widget>[
-                              // Adobe XD layer: 'Group' (group)
-                              Stack(
-                                children: <Widget>[
-                                  // Adobe XD layer: 'Rectangle' (shape)
-                                  Container(
-                                    width: 66.0,
-                                    height: 34.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(16.0),
-                                        bottomLeft: Radius.circular(16.0),
-                                      ),
-                                      color: const Color(0xffedf0ff),
-                                    ),
-                                  ),
-                                  Transform.translate(
-                                    offset: Offset(13.0, 7.0),
-                                    child:
-                                        // Adobe XD layer: 'Asian' (text)
-                                        SizedBox(
-                                      width: 40.0,
-                                      child: Text(
-                                        'Asian',
-                                        style: TextStyle(
-                                          fontFamily: 'Montserrat-Medium',
-                                          fontSize: 12,
-                                          color: const Color(0xff365eff),
-                                          height: 1.5,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Transform.translate(
-                            offset: Offset(76.0, 10.0),
-                            child:
-                                // Adobe XD layer: 'American' (text)
-                                SizedBox(
-                              width: 72.0,
-                              child: Text(
-                                'American',
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat-Medium',
-                                  fontSize: 12,
-                                  color: const Color(0xff656565),
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                          Transform.translate(
-                            offset: Offset(154.5, 10.0),
-                            child:
-                                // Adobe XD layer: 'French' (text)
-                                SizedBox(
-                              width: 50.0,
-                              child: Text(
-                                'French',
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat-Medium',
-                                  fontSize: 12,
-                                  color: const Color(0xff656565),
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                          Transform.translate(
-                            offset: Offset(213.5, 10.0),
-                            child:
-                                // Adobe XD layer: 'Mexico' (text)
-                                SizedBox(
-                              width: 50.0,
-                              child: Text(
-                                'Mexico',
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat-Medium',
-                                  fontSize: 12,
-                                  color: const Color(0xff656565),
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Transform.translate(
-                  offset: Offset(0.0, 110.0),
-                  child:
-                      // Adobe XD layer: 'Near you' (group)
-                      Stack(
-                    children: <Widget>[
-                      Transform.translate(
-                        offset: Offset(0.0, 36.0),
-                        child:
-                            // Adobe XD layer: 'Food infor 1' (group)
-                            Stack(
-                          children: <Widget>[
-                            Transform.translate(
-                              offset: Offset(16.0, 8.0),
-                              child:
-                                  // Adobe XD layer: 'Rectangle' (shape)
-                                  Container(
-                                width: 168.0,
-                                height: 190.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24.0),
-                                  color: const Color(0xffffffff),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color(0x1a000000),
-                                      offset: Offset(8, 16),
-                                      blurRadius: 32,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Transform.translate(
-                              offset: Offset(136.0, 16.0),
-                              child:
-                                  // Adobe XD layer: 'Like' (group)
-                                  Stack(
-                                children: <Widget>[
-                                  // Adobe XD layer: 'Rectangle' (shape)
-                                  Container(
-                                    width: 40.0,
-                                    height: 32.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(2.0),
-                                        topRight: Radius.circular(20.0),
-                                        bottomRight: Radius.circular(2.0),
-                                        bottomLeft: Radius.circular(20.0),
-                                      ),
-                                      color: const Color(0xff99adff),
-                                    ),
-                                  ),
-                                  Transform.translate(
-                                    offset: Offset(8.0, 4.0),
-                                    child:
-                                        // Adobe XD layer: 'Heart' (group)
-                                        Stack(
-                                      children: <Widget>[
-                                        // Adobe XD layer: 'Shape' (shape)
-                                        SvgPicture.string(
-                                          _svg_qqrib0,
-                                          allowDrawingOutsideViewBox: true,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            // Adobe XD layer: 'twenty20_3998e4bc-f…' (group)
-                            Stack(
-                              children: <Widget>[
-                                // Adobe XD layer: 'Mask' (shape)
-                                Container(
-                                  width: 105.0,
-                                  height: 105.0,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.elliptical(52.5, 52.5)),
-                                    color: const Color(0xffd8d8d8),
-                                  ),
-                                ),
-                                // Adobe XD layer: 'twenty20_3998e4bc-f…' (group)
-                                Stack(
-                                  children: <Widget>[
-                                    Transform.translate(
-                                      offset: Offset(-29.01, -44.23),
-                                      child:
-                                          // Adobe XD layer: 'twenty20_3998e4bc-f…' (shape)
-                                          Container(
-                                        width: 168.7,
-                                        height: 168.7,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: const AssetImage(''),
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    // Adobe XD layer: 'Mask' (shape)
-                                    Container(
-                                      width: 105.0,
-                                      height: 105.0,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.elliptical(52.5, 52.5)),
-                                        color: const Color(0xffd8d8d8),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Transform.translate(
-                              offset: Offset(35.0, 113.0),
-                              child:
-                                  // Adobe XD layer: 'Infor' (group)
-                                  Stack(
-                                // children: <Widget>[
-                                //   Transform.translate(
-                                //     offset: Offset(0.0, 43.0),
-                                //     child:
-                                //         // Adobe XD layer: 'Fresh hamburger with' (text)
-                                //         SizedBox(
-                                //       width: 131.0,
-                                //       height: 26.0,
-                                //       child: Text(
-                                //         'Fresh hamburger with chicken, salad, tomatoes.',
-                                //         style: TextStyle(
-                                //           fontFamily: 'Montserrat-Regular',
-                                //           fontSize: 10,
-                                //           color: const Color(0xff656565),
-                                //         ),
-                                //         textAlign: TextAlign.left,
-                                //       ),
-                                //     ),
-                                //   ),
-                                //   // Adobe XD layer: '$30.00' (text)
-                                //   Text(
-                                //     '\$30.00',
-                                //     style: TextStyle(
-                                //       fontFamily: 'Montserrat-SemiBold',
-                                //       fontSize: 14,
-                                //       color: const Color(0xff365eff),
-                                //     ),
-                                //     textAlign: TextAlign.left,
-                                //   ),
-                                //   Transform.translate(
-                                //     offset: Offset(0.0, 20.0),
-                                //     child:
-                                //         // Adobe XD layer: 'Chicken Hamburger' (text)
-                                //         Text(
-                                //       'Chicken Hamburger',
-                                //       style: TextStyle(
-                                //         fontFamily: 'Roboto',
-                                //         fontSize: 14,
-                                //         color: const Color(0xff373737),
-                                //       ),
-                                //       textAlign: TextAlign.left,
-                                //     ),
-                                //   ),
-                                // ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Transform.translate(
-                        offset: Offset(208.0, 36.0),
-                        child:
-                            // Adobe XD layer: 'Food infor 3' (group)
-                            Stack(
-                          // children: <Widget>[
-                          //   Transform.translate(
-                          //     offset: Offset(16.0, 8.0),
-                          //     child:
-                          //         // Adobe XD layer: 'Rectangle' (shape)
-                          //         Container(
-                          //       width: 167.0,
-                          //       height: 187.0,
-                          //       decoration: BoxDecoration(
-                          //         borderRadius: BorderRadius.circular(24.0),
-                          //         color: const Color(0xffffffff),
-                          //         boxShadow: [
-                          //           BoxShadow(
-                          //             color: const Color(0x1a000000),
-                          //             offset: Offset(8, 16),
-                          //             blurRadius: 32,
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
-                          //   Transform.translate(
-                          //     offset: Offset(16.0, 8.0),
-                          //     child:
-                          //         // Adobe XD layer: 'Rectangle' (shape)
-                          //         Container(
-                          //       width: 168.0,
-                          //       height: 190.0,
-                          //       decoration: BoxDecoration(
-                          //         borderRadius: BorderRadius.circular(24.0),
-                          //         color: const Color(0xffffffff),
-                          //         boxShadow: [
-                          //           BoxShadow(
-                          //             color: const Color(0x1a000000),
-                          //             offset: Offset(8, 16),
-                          //             blurRadius: 32,
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
-                          //   Transform.translate(
-                          //     offset: Offset(136.0, 16.0),
-                          //     child:
-                          //         // Adobe XD layer: 'Like' (group)
-                          //         Stack(
-                          //       children: <Widget>[
-                          //         // Adobe XD layer: 'Rectangle' (shape)
-                          //         Container(
-                          //           width: 40.0,
-                          //           height: 32.0,
-                          //           decoration: BoxDecoration(
-                          //             borderRadius: BorderRadius.only(
-                          //               topLeft: Radius.circular(2.0),
-                          //               topRight: Radius.circular(20.0),
-                          //               bottomRight: Radius.circular(2.0),
-                          //               bottomLeft: Radius.circular(20.0),
-                          //             ),
-                          //             color: const Color(0xff99adff),
-                          //           ),
-                          //         ),
-                          //         Transform.translate(
-                          //           offset: Offset(8.0, 4.0),
-                          //           child:
-                          //               // Adobe XD layer: 'Heart' (group)
-                          //               Stack(
-                          //             children: <Widget>[
-                          //               // Adobe XD layer: 'Shape' (shape)
-                          //               SvgPicture.string(
-                          //                 _svg_qqrib0,
-                          //                 allowDrawingOutsideViewBox: true,
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          //   Transform.translate(
-                          //     offset: Offset(32.0, 113.0),
-                          //     child:
-                          //         // Adobe XD layer: 'Infor' (group)
-                          //         Stack(
-                          //       // children: <Widget>[
-                          //       //   Transform.translate(
-                          //       //     offset: Offset(0.0, 43.0),
-                          //       //     child:
-                          //       //         // Adobe XD layer: 'A bit of avocado sal' (text)
-                          //       //         SizedBox(
-                          //       //       width: 131.0,
-                          //       //       height: 26.0,
-                          //       //       child: Text(
-                          //       //         'A bit of avocado salad and some spinach stalks.',
-                          //       //         style: TextStyle(
-                          //       //           fontFamily: 'Montserrat-Regular',
-                          //       //           fontSize: 10,
-                          //       //           color: const Color(0xff656565),
-                          //       //         ),
-                          //       //         textAlign: TextAlign.left,
-                          //       //       ),
-                          //       //     ),
-                          //       //   ),
-                          //       //   // Adobe XD layer: '$18.00' (text)
-                          //       //   Text(
-                          //       //     '\$18.00',
-                          //       //     style: TextStyle(
-                          //       //       fontFamily: 'Montserrat-SemiBold',
-                          //       //       fontSize: 14,
-                          //       //       color: const Color(0xff365eff),
-                          //       //     ),
-                          //       //     textAlign: TextAlign.left,
-                          //       //   ),
-                          //       //   Transform.translate(
-                          //       //     offset: Offset(0.0, 20.0),
-                          //       //     child:
-                          //       //         // Adobe XD layer: 'Dragon Fruits Salad' (text)
-                          //       //         Text(
-                          //       //       'Dragon Fruits Salad',
-                          //       //       style: TextStyle(
-                          //       //         fontFamily: 'Roboto',
-                          //       //         fontSize: 14,
-                          //       //         color: const Color(0xff373737),
-                          //       //       ),
-                          //       //       textAlign: TextAlign.left,
-                          //       //     ),
-                          //       //   ),
-                          //       // ],
-                          //     ),
-                          //   ),
-                          //   // Adobe XD layer: 'Other-2' (group)
-                          //   Stack(
-                          //     children: <Widget>[
-                          //       Transform.translate(
-                          //         offset: Offset(49.65, 8.16),
-                          //         child:
-                          //             // Adobe XD layer: 'bound' (shape)
-                          //             SvgPicture.string(
-                          //           _svg_9sgrmi,
-                          //           allowDrawingOutsideViewBox: true,
-                          //         ),
-                          //       ),
-                          //       Transform.translate(
-                          //         offset: Offset(49.75, 8.49),
-                          //         child:
-                          //             // Adobe XD layer: 'Oval-67' (shape)
-                          //             Container(
-                          //           width: 0.1,
-                          //           height: 0.1,
-                          //           decoration: BoxDecoration(
-                          //             borderRadius: BorderRadius.all(
-                          //                 Radius.elliptical(0.07, 0.07)),
-                          //             color: const Color(0xff365eff),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //       // Adobe XD layer: 'mexican-food_t20_PQ…' (group)
-                          //       Stack(
-                          //         children: <Widget>[
-                          //           // Adobe XD layer: 'Mask' (shape)
-                          //           Container(
-                          //             width: 105.0,
-                          //             height: 105.0,
-                          //             decoration: BoxDecoration(
-                          //               borderRadius: BorderRadius.all(
-                          //                   Radius.elliptical(52.5, 52.5)),
-                          //               color: const Color(0xffd8d8d8),
-                          //             ),
-                          //           ),
-                          //           // Adobe XD layer: 'mexican-food_t20_PQ…' (group)
-                          //           Stack(
-                          //             children: <Widget>[
-                          //               Transform.translate(
-                          //                 offset: Offset(-19.88, -7.66),
-                          //                 child:
-                          //                     // Adobe XD layer: 'mexican-food_t20_PQ…' (shape)
-                          //                     Container(
-                          //                   width: 182.2,
-                          //                   height: 121.5,
-                          //                   decoration: BoxDecoration(
-                          //                     image: DecorationImage(
-                          //                       image: const AssetImage(''),
-                          //                       fit: BoxFit.fill,
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //               ),
-                          //               // Adobe XD layer: 'Mask' (shape)
-                          //               Container(
-                          //                 width: 105.0,
-                          //                 height: 105.0,
-                          //                 decoration: BoxDecoration(
-                          //                   borderRadius: BorderRadius.all(
-                          //                       Radius.elliptical(52.5, 52.5)),
-                          //                   color: const Color(0xffd8d8d8),
-                          //                 ),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         ],
-                          //       ),
-                          //       Transform.translate(
-                          //         offset: Offset(49.98, 8.49),
-                          //         child:
-                          //             // Adobe XD layer: 'Oval-67-Copy' (shape)
-                          //             Container(
-                          //           width: 0.1,
-                          //           height: 0.1,
-                          //           decoration: BoxDecoration(
-                          //             borderRadius: BorderRadius.all(
-                          //                 Radius.elliptical(0.07, 0.07)),
-                          //             color: const Color(0xff365eff),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //       Transform.translate(
-                          //         offset: Offset(50.21, 8.49),
-                          //         child:
-                          //             // Adobe XD layer: 'Oval-67-Copy-2' (shape)
-                          //             Container(
-                          //           width: 0.1,
-                          //           height: 0.1,
-                          //           decoration: BoxDecoration(
-                          //             borderRadius: BorderRadius.all(
-                          //                 Radius.elliptical(0.07, 0.07)),
-                          //             color: const Color(0xff365eff),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ],
-                        ),
-                      ),
-                      Transform.translate(
-                        offset: Offset(0.0, -0.67),
-                        child:
-                            // Adobe XD layer: 'Near you' (text)
-                            Text(
-                          'Near you',
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 16,
-                            color: const Color(0xff373737),
-                            height: 1.25,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Transform.translate(
-                  offset: Offset(0.0, 364.0),
-                  child:
-                      // Adobe XD layer: 'Popular' (group)
-                      Stack(
-                    children: <Widget>[
-                      Transform.translate(
-                        offset: Offset(0.0, 36.0),
-                        child:
-                            // Adobe XD layer: 'Food infor 2' (group)
-                            Stack(
-                          children: <Widget>[
-                            Transform.translate(
-                              offset: Offset(16.0, 8.0),
-                              child:
-                                  // Adobe XD layer: 'Rectangle' (shape)
-                                  Container(
-                                width: 168.0,
-                                height: 190.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24.0),
-                                  color: const Color(0xffffffff),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color(0x1a000000),
-                                      offset: Offset(8, 16),
-                                      blurRadius: 32,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Transform.translate(
-                              offset: Offset(136.0, 16.0),
-                              child:
-                                  // Adobe XD layer: 'Like' (group)
-                                  Stack(
-                                children: <Widget>[
-                                  // Adobe XD layer: 'Rectangle' (shape)
-                                  Container(
-                                    width: 40.0,
-                                    height: 32.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(16.0),
-                                        bottomLeft: Radius.circular(16.0),
-                                      ),
-                                      color: const Color(0xff99adff),
-                                    ),
-                                  ),
-                                  Transform.translate(
-                                    offset: Offset(8.0, 4.0),
-                                    child:
-                                        // Adobe XD layer: 'Heart' (group)
-                                        Stack(
-                                      children: <Widget>[
-                                        // Adobe XD layer: 'Shape' (shape)
-                                        SvgPicture.string(
-                                          _svg_q5rs9t,
-                                          allowDrawingOutsideViewBox: true,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            // Adobe XD layer: 'plate-with-a-sandwi…' (group)
-                            Stack(
-                              children: <Widget>[
-                                // Adobe XD layer: 'Mask' (shape)
-                                Container(
-                                  width: 105.0,
-                                  height: 105.0,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.elliptical(52.5, 52.5)),
-                                    color: const Color(0xffd8d8d8),
-                                  ),
-                                ),
-                                // Adobe XD layer: 'plate-with-a-sandwi…' (group)
-                                Stack(
-                                  children: <Widget>[
-                                    Transform.translate(
-                                      offset: Offset(-17.96, -21.79),
-                                      child:
-                                          // Adobe XD layer: 'plate-with-a-sandwi…' (shape)
-                                          Container(
-                                        width: 216.8,
-                                        height: 144.5,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: const AssetImage(''),
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    // Adobe XD layer: 'Mask' (shape)
-                                    Container(
-                                      width: 105.0,
-                                      height: 105.0,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.elliptical(52.5, 52.5)),
-                                        color: const Color(0xffd8d8d8),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Transform.translate(
-                              offset: Offset(32.0, 113.0),
-                              child:
-                                  // Adobe XD layer: 'Infor' (group)
-                                  Stack(
-                                // children: <Widget>[
-                                //   Transform.translate(
-                                //     offset: Offset(0.0, 43.0),
-                                //     child:
-                                //         // Adobe XD layer: 'Salmon, carrot rolls' (text)
-                                //         SizedBox(
-                                //       width: 131.0,
-                                //       height: 26.0,
-                                //       child: Text(
-                                //         'Salmon, carrot rolls, spinach and some sauce.',
-                                //         style: TextStyle(
-                                //           fontFamily: 'Montserrat-Regular',
-                                //           fontSize: 10,
-                                //           color: const Color(0xff656565),
-                                //         ),
-                                //         textAlign: TextAlign.left,
-                                //       ),
-                                //     ),
-                                //   ),
-                                //   // Adobe XD layer: '$28.00' (text)
-                                //   Text(
-                                //     '\$28.00',
-                                //     style: TextStyle(
-                                //       fontFamily: 'Montserrat-SemiBold',
-                                //       fontSize: 14,
-                                //       color: const Color(0xff365eff),
-                                //     ),
-                                //     textAlign: TextAlign.left,
-                                //   ),
-                                //   Transform.translate(
-                                //     offset: Offset(0.0, 20.0),
-                                //     child:
-                                //         // Adobe XD layer: 'Salmon Sushi' (text)
-                                //         Text(
-                                //       'Salmon Sushi',
-                                //       style: TextStyle(
-                                //         fontFamily: 'Roboto',
-                                //         fontSize: 14,
-                                //         color: const Color(0xff373737),
-                                //       ),
-                                //       textAlign: TextAlign.left,
-                                //     ),
-                                //   ),
-                                // ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Transform.translate(
-                        offset: Offset(208.0, 36.0),
-                        child:
-                            // Adobe XD layer: 'Food infor 4' (group)
-                            Stack(
-                          // children: <Widget>[
-                          //   Transform.translate(
-                          //     offset: Offset(16.0, 8.0),
-                          //     child:
-                          //         // Adobe XD layer: 'Rectangle' (shape)
-                          //         Container(
-                          //       width: 168.0,
-                          //       height: 190.0,
-                          //       decoration: BoxDecoration(
-                          //         borderRadius: BorderRadius.circular(24.0),
-                          //         color: const Color(0xffffffff),
-                          //         boxShadow: [
-                          //           BoxShadow(
-                          //             color: const Color(0x1a000000),
-                          //             offset: Offset(8, 16),
-                          //             blurRadius: 32,
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
-                          //   Transform.translate(
-                          //     offset: Offset(136.0, 16.0),
-                          //     child:
-                          //         // Adobe XD layer: 'Like' (group)
-                          //         Stack(
-                          //       children: <Widget>[
-                          //         // Adobe XD layer: 'Rectangle' (shape)
-                          //         Container(
-                          //           width: 40.0,
-                          //           height: 32.0,
-                          //           decoration: BoxDecoration(
-                          //             borderRadius: BorderRadius.only(
-                          //               topRight: Radius.circular(16.0),
-                          //               bottomLeft: Radius.circular(16.0),
-                          //             ),
-                          //             color: const Color(0xff99adff),
-                          //           ),
-                          //         ),
-                          //         Transform.translate(
-                          //           offset: Offset(8.0, 4.0),
-                          //           child:
-                          //               // Adobe XD layer: 'Heart' (group)
-                          //               Stack(
-                          //             children: <Widget>[
-                          //               // Adobe XD layer: 'Shape' (shape)
-                          //               SvgPicture.string(
-                          //                 _svg_qqrib0,
-                          //                 allowDrawingOutsideViewBox: true,
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          //   // Adobe XD layer: 'Bitmap' (group)
-                          //   Stack(
-                          //     children: <Widget>[
-                          //       // Adobe XD layer: 'Mask' (shape)
-                          //       Container(
-                          //         width: 105.0,
-                          //         height: 105.0,
-                          //         decoration: BoxDecoration(
-                          //           borderRadius: BorderRadius.all(
-                          //               Radius.elliptical(52.5, 52.5)),
-                          //           color: const Color(0xffd8d8d8),
-                          //         ),
-                          //       ),
-                          //       // Adobe XD layer: 'Bitmap' (group)
-                          //       Stack(
-                          //         children: <Widget>[
-                          //           Transform.translate(
-                          //             offset: Offset(-46.0, -20.0),
-                          //             child:
-                          //                 // Adobe XD layer: 'Bitmap' (shape)
-                          //                 Container(
-                          //               width: 208.0,
-                          //               height: 139.0,
-                          //               decoration: BoxDecoration(
-                          //                 image: DecorationImage(
-                          //                   image: const AssetImage(''),
-                          //                   fit: BoxFit.fill,
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           ),
-                          //           // Adobe XD layer: 'Mask' (shape)
-                          //           Container(
-                          //             width: 105.0,
-                          //             height: 105.0,
-                          //             decoration: BoxDecoration(
-                          //               borderRadius: BorderRadius.all(
-                          //                   Radius.elliptical(52.5, 52.5)),
-                          //               color: const Color(0xffd8d8d8),
-                          //             ),
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     ],
-                          //   ),
-                          //   Transform.translate(
-                          //     offset: Offset(32.0, 113.0),
-                          //     child:
-                          //         // Adobe XD layer: 'Infor' (group)
-                          //         Stack(
-                          //       // children: <Widget>[
-                          //       //   Transform.translate(
-                          //       //     offset: Offset(0.0, 43.0),
-                          //       //     child:
-                          //       //         // Adobe XD layer: 'Fresh hamburger with' (text)
-                          //       //         SizedBox(
-                          //       //       width: 131.0,
-                          //       //       height: 26.0,
-                          //       //       child: Text(
-                          //       //         'Fresh hamburger with chicken, salad, tomatoes.',
-                          //       //         style: TextStyle(
-                          //       //           fontFamily: 'Montserrat-Regular',
-                          //       //           fontSize: 10,
-                          //       //           color: const Color(0xff656565),
-                          //       //         ),
-                          //       //         textAlign: TextAlign.left,
-                          //       //       ),
-                          //       //     ),
-                          //       //   ),
-                          //       //   // Adobe XD layer: '$11.00' (text)
-                          //       //   Text(
-                          //       //     '\$11.00',
-                          //       //     style: TextStyle(
-                          //       //       fontFamily: 'Montserrat-SemiBold',
-                          //       //       fontSize: 14,
-                          //       //       color: const Color(0xff365eff),
-                          //       //     ),
-                          //       //     textAlign: TextAlign.left,
-                          //       //   ),
-                          //       //   Transform.translate(
-                          //       //     offset: Offset(0.0, 20.0),
-                          //       //     child:
-                          //       //         // Adobe XD layer: 'Avocado Salad' (text)
-                          //       //         Text(
-                          //       //       'Avocado Salad',
-                          //       //       style: TextStyle(
-                          //       //         fontFamily: 'Roboto',
-                          //       //         fontSize: 14,
-                          //       //         color: const Color(0xff373737),
-                          //       //       ),
-                          //       //       textAlign: TextAlign.left,
-                          //       //     ),
-                          //       //   ),
-                          //       // ],
-                          //     ),
-                          //   ),
-                          // ],
-                        ),
-                      ),
-                      Transform.translate(
-                        offset: Offset(0.0, -0.67),
-                        child:
-                            // Adobe XD layer: 'Popular' (text)
-                            Text(
-                          'Popular',
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 16,
-                            color: const Color(0xff373737),
-                            height: 1.25,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Transform.translate(
-                  offset: Offset(0.0, -5.0),
-                  child:
-                      // Adobe XD layer: 'Food & Delivery' (text)
-                      Text(
-                    'Food & Delivery',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 24,
-                      color: const Color(0xff000000),
-                      height: 1.5,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Transform.translate(
-            offset: Offset(47.5, 645.0),
-            child:
-                // Adobe XD layer: 'dot' (shape)
-                Container(
-              width: 6.0,
-              height: 6.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.elliptical(3.0, 3.0)),
-                color: const Color(0xfffcf9f7),
-              ),
-            ),
-          ),
-          Transform.translate(
-            offset: Offset(214.0, 703.0),
-            child:
-                // Adobe XD layer: 'Btn view all' (group)
-                Stack(
-              children: <Widget>[
-                // Adobe XD layer: 'Rectangle' (shape)
-                Container(
-                  width: 139.0,
-                  height: 48.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(100.0),
-                      topRight: Radius.circular(26.0),
-                      bottomRight: Radius.circular(100.0),
-                      bottomLeft: Radius.circular(26.0),
-                    ),
-                    color: const Color(0xff365eff),
-                  ),
-                ),
-                Transform.translate(
-                  offset: Offset(32.0, 4.33),
-                  child:
-                      // Adobe XD layer: 'View All' (text)
-                      Text(
-                    'View All',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat-SemiBold',
-                      fontSize: 18,
+                  offset: Offset(0.5, 0.0),
+                  child: Container(
+                    width: 379.0,
+                    height: 812.0,
+                    decoration: BoxDecoration(
                       color: const Color(0xffffffff),
-                      height: 1.7777777777777777,
                     ),
-                    textAlign: TextAlign.left,
+                  ),
+                ),
+                // Adobe XD layer: 'Menu' (group)
+                Stack(
+                  children: <Widget>[
+                    // Adobe XD layer: 'Path 3' (shape)
+                    SvgPicture.string(
+                      _svg_496moa,
+                      allowDrawingOutsideViewBox: true,
+                    ),
+                    Transform.translate(
+                      offset: Offset(16.0, 729.5),
+                      child:
+                          // Adobe XD layer: 'cart' (group)
+                          Stack(
+                        children: <Widget>[
+                          // Adobe XD layer: 'Rectangle' (shape)
+                          Container(
+                            width: 24.0,
+                            height: 24.0,
+                            decoration: BoxDecoration(),
+                          ),
+                          Transform.translate(
+                            offset: Offset(3.0, 0.0),
+                            child:
+                                // Adobe XD layer: 'shopping-bag' (group)
+                                Stack(
+                              children: <Widget>[
+                                Transform.translate(
+                                  offset: Offset(5.79, 0.53),
+                                  child:
+                                      // Adobe XD layer: 'Path' (shape)
+                                      SvgPicture.string(
+                                    _svg_smpafo,
+                                    allowDrawingOutsideViewBox: true,
+                                  ),
+                                ),
+                                Transform.translate(
+                                  offset: Offset(4.5, 7.5),
+                                  child:
+                                      // Adobe XD layer: 'Oval' (shape)
+                                      Container(
+                                    width: 2.0,
+                                    height: 2.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.elliptical(1.0, 1.0)),
+                                      border: Border.all(
+                                          width: 1.0,
+                                          color: const Color(0xff111111)),
+                                    ),
+                                  ),
+                                ),
+                                Transform.translate(
+                                  offset: Offset(11.5, 7.5),
+                                  child:
+                                      // Adobe XD layer: 'Oval' (shape)
+                                      Container(
+                                    width: 2.0,
+                                    height: 2.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.elliptical(1.0, 1.0)),
+                                      border: Border.all(
+                                          width: 1.0,
+                                          color: const Color(0xff111111)),
+                                    ),
+                                  ),
+                                ),
+                                Transform.translate(
+                                  offset: Offset(0.61, 5.5),
+                                  child:
+                                      // Adobe XD layer: 'Path' (shape)
+                                      SvgPicture.string(
+                                    _svg_3umfga,
+                                    allowDrawingOutsideViewBox: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Transform.translate(
+                      offset: Offset(20.0, 148.0),
+                      child:
+                          // Adobe XD layer: 'Search' (group)
+                          Stack(
+                        children: <Widget>[
+                          // Adobe XD layer: 'bound' (shape)
+                          SvgPicture.string(
+                            _svg_2jjczc,
+                            allowDrawingOutsideViewBox: true,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Transform.translate(
+                      offset: Offset(20.0, 76.0),
+                      child:
+                          // Adobe XD layer: 'Layout-4-Blocks' (group)
+                          Stack(
+                        children: <Widget>[
+                          // Adobe XD layer: 'bound' (shape)
+                          SvgPicture.string(
+                            _svg_9750qa,
+                            allowDrawingOutsideViewBox: true,
+                          ),
+                          Transform.translate(
+                            offset: Offset(4.0, 4.0),
+                            child:
+                                // Adobe XD layer: 'Rectangle-7' (shape)
+                                Container(
+                              width: 7.0,
+                              height: 7.0,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(1.5),
+                                color: const Color(0xff111111),
+                              ),
+                            ),
+                          ),
+                          Transform.translate(
+                            offset: Offset(4.0, 4.0),
+                            child:
+                                // Adobe XD layer: 'Combined-Shape' (shape)
+                                SvgPicture.string(
+                              _svg_2ugqxp,
+                              allowDrawingOutsideViewBox: true,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Transform(
+                      transform: Matrix4(0.0, -1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+                          0.0, 0.0, 0.0, 1.0, 0.0, 17.5, 669.5, 0.0, 1.0),
+                      child:
+                          // Adobe XD layer: 'Home' (text)
+                          SizedBox(
+                        width: 42.0,
+                        child: Text(
+                          'Home',
+                          style: TextStyle(
+                            fontFamily: 'PlayfairDisplay-Bold',
+                            fontSize: 13,
+                            color: const Color(0xff365eff),
+                            height: 1.8461538461538463,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    Transform(
+                      transform: Matrix4(0.0, -1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+                          0.0, 0.0, 0.0, 1.0, 0.0, 14.0, 569.0, 0.0, 1.0),
+                      child:
+                          // Adobe XD layer: 'Invoice' (text)
+                          SizedBox(
+                        width: 50.0,
+                        child: Text(
+                          'Invoice',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 13,
+                            color: const Color(0xff000000),
+                            height: 1.8461538461538463,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    Transform(
+                      transform: Matrix4(0.0, -1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+                          0.0, 0.0, 0.0, 1.0, 0.0, 13.5, 464.0, 0.0, 1.0),
+                      child:
+                          // Adobe XD layer: 'Notification' (text)
+                          SizedBox(
+                        width: 80.0,
+                        child: Text(
+                          'Notification',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 13,
+                            color: const Color(0xff000000),
+                            height: 1.8461538461538463,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    Transform(
+                      transform: Matrix4(0.0, -1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+                          0.0, 0.0, 0.0, 1.0, 0.0, 14.0, 331.0, 0.0, 1.0),
+                      child:
+                          // Adobe XD layer: 'My Profile' (text)
+                          SizedBox(
+                        width: 74.0,
+                        child: Text(
+                          'My  Profile',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 13,
+                            color: const Color(0xff000000),
+                            height: 1.8461538461538463,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Transform.translate(
+                  offset: Offset(102.0, 68.0),
+                  child:
+                      // Adobe XD layer: 'Content' (group)
+                      Stack(
+                    children: <Widget>[
+                      Transform.translate(
+                        offset: Offset(0.0, 52.0),
+                        child:
+                            // Adobe XD layer: 'Filter' (group)
+                            Stack(
+                          children: <Widget>[
+                            // Adobe XD layer: 'Nation' (group)
+                            Stack(
+                              children: <Widget>[
+                                // Adobe XD layer: 'Group' (group)
+                                Stack(
+                                  children: <Widget>[
+                                    // Adobe XD layer: 'Group' (group)
+                                    Stack(
+                                      children: <Widget>[
+                                        // Adobe XD layer: 'Rectangle' (shape)
+                                        Container(
+                                          width: 66.0,
+                                          height: 34.0,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(16.0),
+                                              bottomLeft: Radius.circular(16.0),
+                                            ),
+                                            color: const Color(0xffedf0ff),
+                                          ),
+                                        ),
+                                        Transform.translate(
+                                          offset: Offset(13.0, 7.0),
+                                          child:
+                                              // Adobe XD layer: 'Asian' (text)
+                                              SizedBox(
+                                            width: 40.0,
+                                            child: Text(
+                                              'Asian',
+                                              style: TextStyle(
+                                                fontFamily: 'Montserrat-Medium',
+                                                fontSize: 12,
+                                                color: const Color(0xff365eff),
+                                                height: 1.5,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Transform.translate(
+                                  offset: Offset(76.0, 10.0),
+                                  child:
+                                      // Adobe XD layer: 'American' (text)
+                                      SizedBox(
+                                    width: 72.0,
+                                    child: Text(
+                                      'American',
+                                      style: TextStyle(
+                                        fontFamily: 'Montserrat-Medium',
+                                        fontSize: 12,
+                                        color: const Color(0xff656565),
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                                Transform.translate(
+                                  offset: Offset(154.5, 10.0),
+                                  child:
+                                      // Adobe XD layer: 'French' (text)
+                                      SizedBox(
+                                    width: 50.0,
+                                    child: Text(
+                                      'French',
+                                      style: TextStyle(
+                                        fontFamily: 'Montserrat-Medium',
+                                        fontSize: 12,
+                                        color: const Color(0xff656565),
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                                Transform.translate(
+                                  offset: Offset(213.5, 10.0),
+                                  child:
+                                      // Adobe XD layer: 'Mexico' (text)
+                                      SizedBox(
+                                    width: 50.0,
+                                    child: Text(
+                                      'Mexico',
+                                      style: TextStyle(
+                                        fontFamily: 'Montserrat-Medium',
+                                        fontSize: 12,
+                                        color: const Color(0xff656565),
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Transform.translate(
+                        offset: Offset(0.0, 110.0),
+                        child:
+                            // Adobe XD layer: 'Near you' (group)
+                            Stack(
+                          children: <Widget>[
+                            Transform.translate(
+                              offset: Offset(0.0, 36.0),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount:
+                                      state.data.nearbyRestaurants.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Stack(
+                                      children: <Widget>[
+                                        Transform.translate(
+                                          offset: Offset(16.0, 8.0),
+                                          child:
+                                              // Adobe XD layer: 'Rectangle' (shape)
+                                              Container(
+                                            margin: const EdgeInsets.only(
+                                                right: 20.0),
+                                            width: 168.0,
+                                            height: 190.0,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                              color: const Color(0xffffffff),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color:
+                                                      const Color(0x1a000000),
+                                                  offset: Offset(8, 16),
+                                                  blurRadius: 32,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Transform.translate(
+                                          offset: Offset(136.0, 16.0),
+                                          child:
+                                              // Adobe XD layer: 'Like' (group)
+                                              Stack(
+                                            children: <Widget>[
+                                              // Adobe XD layer: 'Rectangle' (shape)
+                                              Container(
+                                                width: 40.0,
+                                                height: 32.0,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(2.0),
+                                                    topRight:
+                                                        Radius.circular(20.0),
+                                                    bottomRight:
+                                                        Radius.circular(2.0),
+                                                    bottomLeft:
+                                                        Radius.circular(20.0),
+                                                  ),
+                                                  color:
+                                                      const Color(0xff99adff),
+                                                ),
+                                              ),
+                                              Transform.translate(
+                                                offset: Offset(8.0, 4.0),
+                                                child:
+                                                    // Adobe XD layer: 'Heart' (group)
+                                                    Stack(
+                                                  children: <Widget>[
+                                                    // Adobe XD layer: 'Shape' (shape)
+                                                    SvgPicture.string(
+                                                      _svg_qqrib0,
+                                                      allowDrawingOutsideViewBox:
+                                                          true,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        // Adobe XD layer: 'twenty20_3998e4bc-f…' (group)
+                                        Stack(
+                                          children: <Widget>[
+                                            // Adobe XD layer: 'twenty20_3998e4bc-f…' (shape)
+                                            Container(
+                                              width: 105.0,
+                                              height: 105.0,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                  image:
+                                                      CachedNetworkImageProvider(
+                                                          state
+                                                              .data
+                                                              .nearbyRestaurants[
+                                                                  index]
+                                                              .restaurant
+                                                              .thumb),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ),
+                                            Transform.translate(
+                                              offset: Offset(35.0, 113.0),
+                                              child:
+                                                  // Adobe XD layer: 'Infor' (group)
+                                                  Stack(
+                                                children: <Widget>[
+                                                  Transform.translate(
+                                                    offset: Offset(0.0, 43.0),
+                                                    child:
+                                                        // Adobe XD layer: 'Fresh hamburger with' (text)
+                                                        SizedBox(
+                                                      width: 131.0,
+                                                      height: 26.0,
+                                                      child: Text(
+                                                        state
+                                                            .data
+                                                            .nearbyRestaurants[
+                                                                index]
+                                                            .restaurant
+                                                            .cuisines,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Montserrat-Regular',
+                                                          fontSize: 10,
+                                                          color: const Color(
+                                                              0xff656565),
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  // Adobe XD layer: '$30.00' (text)
+                                                  Text(
+                                                    state
+                                                            .data
+                                                            .nearbyRestaurants[
+                                                                index]
+                                                            .restaurant
+                                                            .currency +
+                                                        state
+                                                            .data
+                                                            .nearbyRestaurants[
+                                                                index]
+                                                            .restaurant
+                                                            .averageCostForTwo
+                                                            .toString(),
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Montserrat-SemiBold',
+                                                      fontSize: 14,
+                                                      color: const Color(
+                                                          0xff365eff),
+                                                    ),
+                                                    textAlign: TextAlign.left,
+                                                  ),
+                                                  Transform.translate(
+                                                    offset: Offset(0.0, 20.0),
+                                                    child:
+                                                        // Adobe XD layer: 'Chicken Hamburger' (text)
+                                                        SizedBox(
+                                                      width: 131.0,
+                                                      height: 16.0,
+                                                      child: Text(
+                                                        state
+                                                            .data
+                                                            .nearbyRestaurants[
+                                                                index]
+                                                            .restaurant
+                                                            .name,
+                                                        style: TextStyle(
+                                                          fontFamily: 'Roboto',
+                                                          fontSize: 14,
+                                                          color: const Color(
+                                                              0xff373737),
+                                                        ),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                            // Adobe XD layer: 'Mask' (shape)
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                              // Adobe XD layer: 'Food infor 1' (group)
+                            ),
+                            Transform.translate(
+                              offset: Offset(0.0, -0.67),
+                              child:
+                                  // Adobe XD layer: 'Near you' (text)
+                                  Text(
+                                'Near you',
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 16,
+                                  color: const Color(0xff373737),
+                                  height: 1.25,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Transform.translate(
+                        offset: Offset(0.0, 364.0),
+                        child:
+                            // Adobe XD layer: 'Popular' (group)
+                            Stack(
+                          children: <Widget>[
+                            Transform.translate(
+                              offset: Offset(0.0, -0.67),
+                              child:
+                                  // Adobe XD layer: 'Popular' (text)
+                                  Text(
+                                'Popular',
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 16,
+                                  color: const Color(0xff373737),
+                                  height: 1.25,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Transform.translate(
+                        offset: Offset(0.0, -5.0),
+                        child:
+                            // Adobe XD layer: 'Food & Delivery' (text)
+                            Text(
+                          'Food & Delivery',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 24,
+                            color: const Color(0xff000000),
+                            height: 1.5,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Transform.translate(
+                  offset: Offset(47.5, 645.0),
+                  child:
+                      // Adobe XD layer: 'dot' (shape)
+                      Container(
+                    width: 6.0,
+                    height: 6.0,
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.all(Radius.elliptical(3.0, 3.0)),
+                      color: const Color(0xfffcf9f7),
+                    ),
+                  ),
+                ),
+                Transform.translate(
+                  offset: Offset(214.0, 703.0),
+                  child:
+                      // Adobe XD layer: 'Btn view all' (group)
+                      Stack(
+                    children: <Widget>[
+                      // Adobe XD layer: 'Rectangle' (shape)
+                      Container(
+                        width: 139.0,
+                        height: 48.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(100.0),
+                            topRight: Radius.circular(26.0),
+                            bottomRight: Radius.circular(100.0),
+                            bottomLeft: Radius.circular(26.0),
+                          ),
+                          color: const Color(0xff365eff),
+                        ),
+                      ),
+                      Transform.translate(
+                        offset: Offset(32.0, 4.33),
+                        child:
+                            // Adobe XD layer: 'View All' (text)
+                            Text(
+                          'View All',
+                          style: TextStyle(
+                            fontFamily: 'Montserrat-SemiBold',
+                            fontSize: 18,
+                            color: const Color(0xffffffff),
+                            height: 1.7777777777777777,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Transform.translate(
+                  offset: Offset(-214.45, 77.13),
+                  child: SvgPicture.string(
+                    _svg_6yss9n,
+                    allowDrawingOutsideViewBox: true,
                   ),
                 ),
               ],
             ),
-          ),
-          Transform.translate(
-            offset: Offset(-214.45, 77.13),
-            child: SvgPicture.string(
-              _svg_6yss9n,
-              allowDrawingOutsideViewBox: true,
-            ),
-          ),
-        ],
-      ),
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }

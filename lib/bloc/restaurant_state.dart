@@ -1,4 +1,4 @@
-import 'package:iamplus_zomato/models/restaurant.dart';
+import 'package:iamplus_zomato/models/restaurant_data.dart';
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 
@@ -15,7 +15,7 @@ class RestaurantEmpty extends RestaurantState {}
 class RestaurantLoading extends RestaurantState {}
 
 class RestaurantLoaded extends RestaurantState {
-  final Restaurant data;
+  final RestaurantData data;
 
   const RestaurantLoaded({@required this.data}) : assert(data != null);
 

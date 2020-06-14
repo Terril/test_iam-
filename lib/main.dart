@@ -14,32 +14,48 @@ void main() {
       httpClient: http.Client(),
     ),
   );
-  runApp(App( repository: repository,
+  runApp(App(
+    repository: repository,
   ));
 }
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
   void onTransition(Bloc bloc, Transition transition) {
-     super.onTransition(bloc, transition);
-     print(transition);
+    super.onTransition(bloc, transition);
   }
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   final ApiRepository repository;
 
   App({Key key, @required this.repository})
       : assert(repository != null),
         super(key: key);
 
- Future<Position> getLocation() async {
-   return  await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
- }
+  @override
+  _AppPageState createState() => _AppPageState(repository);
+}
+
+class _AppPageState extends State<App> {
+  Position position = null;
+  final ApiRepository repository;
+
+  _AppPageState(this.repository);
+
+  void requestLocationPermission(BuildContext context) async {
+    Position currentPosition = await Geolocator().getCurrentPosition(
+      locationPermissionLevel: GeolocationPermission.locationWhenInUse,
+      desiredAccuracy: LocationAccuracy.low);
+
+    setState(() {
+      position = currentPosition;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    
+    requestLocationPermission(context);
     return MaterialApp(
       title: 'Iam+',
       theme: ThemeData(
@@ -48,7 +64,10 @@ class App extends StatelessWidget {
       ),
       home: Scaffold(
         body: BlocProvider(
-          create: (context) => RestaurantBloc(repository: repository, lat: 21.1458, lon: 79.0882),
+          create: (context) => RestaurantBloc(
+              repository: repository,
+              lat: position != null ? position.latitude : 21.1458,
+              lon: position !=null ? position.longitude : 79.0882),
           child: Home(),
         ),
       ),

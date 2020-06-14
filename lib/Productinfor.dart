@@ -282,9 +282,9 @@ class Productinfor extends StatelessWidget {
                           item.cuisines,
                           style: TextStyle(
                             fontFamily: 'Montserrat-Regular',
-                            fontSize: 12,
+                            fontSize: 11,
                             color: const Color(0xff656565),
-                            height: 1.5,
+                            height: 1.7,
                           ),
                           textAlign: TextAlign.left,
                         ),
@@ -298,21 +298,21 @@ class Productinfor extends StatelessWidget {
                         item.currency + item.averageCostForTwo.toString(),
                         style: TextStyle(
                           fontFamily: 'Montserrat-SemiBold',
-                          fontSize: 24,
+                          fontSize: 23,
                           color: const Color(0xff365eff),
                         ),
                         textAlign: TextAlign.left,
                       ),
                     ),
                     Transform.translate(
-                      offset: Offset(32.0, 407.0),
+                      offset: Offset(32.0, 404.0),
                       child:
                           // Adobe XD layer: 'Chicken Hamburger' (text)
                           Text(
                         item.name,
                         style: TextStyle(
                           fontFamily: 'Roboto',
-                          fontSize: 24,
+                          fontSize: 23,
                           color: const Color(0xff373737),
                         ),
                         textAlign: TextAlign.left,

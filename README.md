@@ -2,4 +2,4 @@
 
 Its a Flutter project using zomato developer data from the Swagger to show the hotels and data related to once geolocations
 
-[Sample Working Model](https://photos.app.goo.gl/q3PfzpL7RgPjFgvQ6)
+[Sample Working Model](https://github.com/Terril/test_iam-/blob/master/2020-06-14%2017.42.33.gif)

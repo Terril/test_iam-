@@ -4,13 +4,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iamplus_zomato/bloc/restaurant_event.dart';
 
+import 'Productinfor.dart';
 import 'bloc/restaurant_bloc.dart';
 import 'bloc/restaurant_state.dart';
+import 'models/restaurant.dart';
 
 class Home extends StatelessWidget {
   Home({
     Key key,
   }) : super(key: key);
+
+  Route _createRoute(Restaurant item) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => Productinfor(item: item),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RestaurantBloc, RestaurantState>(
@@ -378,25 +398,38 @@ class Home extends StatelessWidget {
                                       children: <Widget>[
                                         Transform.translate(
                                           offset: Offset(16.0, 8.0),
-                                          child:
-                                              // Adobe XD layer: 'Rectangle' (shape)
-                                              Container(
-                                            margin: const EdgeInsets.only(
-                                                right: 20.0),
-                                            width: 168.0,
-                                            height: 190.0,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(24.0),
-                                              color: const Color(0xffffffff),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color:
-                                                      const Color(0x1a000000),
-                                                  offset: Offset(8, 16),
-                                                  blurRadius: 32,
-                                                ),
-                                              ],
+                                          child: InkWell(
+                                            splashColor: Colors.pink,
+                                            onTap: () {
+                                              Navigator.of(context).push(_createRoute(state.data.nearbyRestaurants[index].restaurant));
+                                             // Navigator.push(
+                                              //  context,
+                                              //   MaterialPageRoute(
+                                              //       builder: (context) =>
+                                              //           Productinfor(
+                                              //               item: state.data.nearbyRestaurants[index].restaurant)),
+                                              // );
+                                            },
+                                            child:
+                                                // Adobe XD layer: 'Rectangle' (shape)
+                                                Container(
+                                              margin: const EdgeInsets.only(
+                                                  right: 20.0),
+                                              width: 168.0,
+                                              height: 190.0,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(24.0),
+                                                color: const Color(0xffffffff),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color:
+                                                        const Color(0x1a000000),
+                                                    offset: Offset(8, 16),
+                                                    blurRadius: 32,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -670,13 +703,6 @@ class Home extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
-                ),
-                Transform.translate(
-                  offset: Offset(-214.45, 77.13),
-                  child: SvgPicture.string(
-                    _svg_6yss9n,
-                    allowDrawingOutsideViewBox: true,
                   ),
                 ),
               ],

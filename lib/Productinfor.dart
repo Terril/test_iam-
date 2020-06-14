@@ -1,10 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'models/restaurant.dart';
+
 class Productinfor extends StatelessWidget {
-  Productinfor({
-    Key key,
-  }) : super(key: key);
+  final Restaurant item;
+  Productinfor({Key key, @required this.item}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -277,7 +279,7 @@ class Productinfor extends StatelessWidget {
                         width: 215.0,
                         height: 54.0,
                         child: Text(
-                          'Fresh hamburger with chicken, salad, tomatoes a little soy sauce makes a different taste.',
+                          item.cuisines,
                           style: TextStyle(
                             fontFamily: 'Montserrat-Regular',
                             fontSize: 12,
@@ -293,7 +295,7 @@ class Productinfor extends StatelessWidget {
                       child:
                           // Adobe XD layer: '$30.00' (text)
                           Text(
-                        '\$30.00',
+                        item.currency + item.averageCostForTwo.toString(),
                         style: TextStyle(
                           fontFamily: 'Montserrat-SemiBold',
                           fontSize: 24,
@@ -307,7 +309,7 @@ class Productinfor extends StatelessWidget {
                       child:
                           // Adobe XD layer: 'Chicken Hamburger' (text)
                           Text(
-                        'Chicken Hamburger',
+                        item.name,
                         style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 24,
@@ -333,34 +335,16 @@ class Productinfor extends StatelessWidget {
                             ),
                           ),
                           // Adobe XD layer: 'Image' (group)
-                          Stack(
-                            children: <Widget>[
-                              Transform.translate(
-                                offset: Offset(-67.0, -103.0),
-                                child:
-                                    // Adobe XD layer: 'twenty20_3998e4bc-f…' (shape)
-                                    Container(
-                                  width: 393.0,
-                                  height: 393.0,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: const AssetImage(''),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
+                          Container(
+                            width: 245.0,
+                            height: 245.0,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: CachedNetworkImageProvider(item.thumb),
+                                fit: BoxFit.fill,
                               ),
-                              // Adobe XD layer: 'Mask' (shape)
-                              Container(
-                                width: 245.0,
-                                height: 245.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.elliptical(122.5, 122.5)),
-                                  color: const Color(0xffd8d8d8),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
@@ -441,12 +425,17 @@ class Productinfor extends StatelessWidget {
                       offset: Offset(176.0, 8.0),
                       child:
                           // Adobe XD layer: 'Rectangle' (shape)
-                          Container(
-                        width: 24.0,
-                        height: 4.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(2.5),
-                          color: const Color(0xff365eff),
+                          InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: 24.0,
+                          height: 4.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2.5),
+                            color: const Color(0xff365eff),
+                          ),
                         ),
                       ),
                     ),
